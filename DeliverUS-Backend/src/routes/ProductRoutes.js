@@ -18,6 +18,14 @@ const loadFileRoutes = (app) => {
       ProductMiddleware.checkProductRestaurantOwnership,
       ProductController.create
     )
+  app.route('/products/:productId/promote')
+    .patch(
+      isLoggedIn,
+      hasRole('owner'),
+      checkEntityExists(Product, 'productId'),
+      ProductMiddleware.checkRestaurantHasDiscount,
+      ProductController.promote
+    )
   app.route('/products/popular')
     .get(
       ProductController.popular

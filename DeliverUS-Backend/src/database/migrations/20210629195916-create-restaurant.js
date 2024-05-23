@@ -77,6 +77,10 @@ module.exports = {
           key: 'id'
         }
       },
+      discount: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
       restaurantCategoryId: {
         allowNull: false,
         type: Sequelize.INTEGER,
