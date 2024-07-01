@@ -1,80 +1,59 @@
-# IISSI-2 IS: Simulacro de examen de laboratorio
-
-## Enunciado
-
-Una vez se ha puesto en marcha la primera versión de DeliverUS, los inversores han solicitado la inclusión de una nueva funcionalidad que consiste en ofrecer a los propietarios la posibilidad de promocionar sus restaurantes. Cada propietario sólo podrá promocionar uno de sus restaurantes.
-
-Un propietario podrá promocionar un restaurante de dos maneras distintas:
-
-* En el formulario de creación de restaurante. Por defecto, se seleccionará la opción de no promocionado. Si el propietario indica que el nuevo restaurante debe estar promocionado, pero ya existían restaurantes promocionados del mismo propietario, al pulsar el botón `Save` se mostrará un error y no se creará el restaurante.
-
-* En la pantalla de "Mis restaurantes", mediante un botón mostrado junto a cada restaurante, que permitirá mediante su pulsación promocionar el restaurante en cuestión. Si el propietario pulsa el botón para promocionar un nuevo restaurante y ya existían otros restaurantes promocionados del mismo dueño, se procederá a promocionar el restaurante indicado y se marcará como "no promocionado" el restaurante que lo fuese anteriormente. La aplicación debe pedir confirmación al propietario cuando se pulse el botón; utilice para ello el componente suministrado `ConfirmationModal`, similar al componente `DeleteModal` utilizado en clase.
-
-Además, los restaurantes promocionados aparecerán siempre al principio de los listados de restaurantes que se le presentan tanto a los propietarios como a los clientes. Además de presentarse al principio, los restaurantes promocionados deben destacarse visualmente, por lo que aparecerá una etiqueta de texto `¡En promoción!` con el color principal de la marca.
-
-### Ejercicio 1
-
-Realice todos los cambios necesarios en el proyecto de backend para implementar el nuevo requisito.
-
-### Ejercicio 2
-
-Realice todos los cambios necesarios en el proyecto de frontend para implementar el nuevo requisito.
-
-![captura1](https://user-images.githubusercontent.com/19324988/235651836-d57d9c7e-4b8d-46a2-9154-b414a7abf702.png)
-
-![captura2](https://user-images.githubusercontent.com/19324988/235651849-4d03c7d9-f332-4952-8cbc-9fa5db4f97fb.png)
-
-![captura3](https://user-images.githubusercontent.com/19324988/235651853-e1d13916-4f47-4e17-97e0-5696b647bee7.png)
+# DeliverUS-Owner Monorepo
 
 ## Introducción
-
-Este repositorio incluye el backend completo (carpeta `DeliverUS-Backend`) y el frontend de `owner` (carpeta `DeliverUS-Frontend-Owner`). Servirá como base para realizar el examen de laboratorio de la asignatura.
+Este repositorio incluye el backend completo (carpeta `DeliverUS-Backend`) y el frontend de owner (carpeta `DeliverUS-Frontend-Owner`). Servirá como base para los exámenes de convocatoria de la asignatura.
 
 ## Preparación del entorno
 
-### a) Windows
-
+Windows:
 * Abra un terminal y ejecute el comando `npm run install:all:win`.
 
-### b) Linux/MacOS
-
+Linux/MacOS:
 * Abra un terminal y ejecute el comando `npm run install:all:bash`.
 
-## Ejecución
+## Ejecución y depuración
 
-### Backend
+* Para **ejecutar el backend**, abra un terminal y ejecute el comando `npm run start:backend`. 
 
-* Para **rehacer las migraciones y seeders**, abra un terminal y ejecute el comando
+* Para **ejecutar el frontend**, abra un nuevo terminal y ejecute el comando `npm run start:frontend`. 
 
-    ```Bash
-    npm run migrate:backend
-    ```
+* Para **depurar el backend**, asegúrese de que **NO** existe una instancia en ejecución, pulse en el botón `Run and Debug` de la barra lateral, seleccione `Debug Backend` en la lista desplegable, y pulse el botón de *Play*. 
 
-* Para **ejecutarlo**, abra un terminal y ejecute el comando
+* Para **depurar el frontend**, asegúrese de que **EXISTE** una instancia en ejecución, pulse en el botón `Run and Debug` de la barra lateral, seleccione `Debug Frontend` en la lista desplegable, y pulse el botón de *Play*. 
 
-    ```Bash
-    npm run start:backend
-    ```
 
-### Frontend
+# Enunciado
 
-* Para **ejecutar la aplicación frontend de `owner`**, abra un nuevo terminal y ejecute el comando
+La empresa ha decidido ofrecer a los propietarios la posibilidad de asociar un descuento (entero entre 0 y 100, por ejemplo: 10) a sus restaurantes, para que posteriormente el sistema muestre y aplique el descuento especificado a sus productos. Los propietarios podrán establecer un porcentaje de descuento diferente para cada uno de sus restaurantes y que después se aplicarían a los productos de cada restaurante.
 
-    ```Bash
-    npm run start:frontend:owner
-    ```
+Sin embargo, algunos propietarios han indicado que no todos los productos de sus catálogos se promocionan habitualmente. Por ello, la empresa ha decidido, además de permitir al restaurante indicar el porcentaje de descuento sobre el precio original, dar la posibilidad de indicar en cada producto si será promocionado o no.
 
-## Depuración
+Todos los productos promocionados de un restaurante serán promocionados con el mismo porcentaje de descuento que el propietario indique en las propiedades de sus restaurantes. Tenga en cuenta que un producto puede estar promocionado pero, si el porcentaje de descuento indicado en el restaurante es 0%, no tendrá ningún efecto. Sólo los propietarios de un restaurante podrán activar y desactivar los productos promocionados así como indicar el descuento promocional.
 
-* Para **depurar el backend**, asegúrese de que **NO** existe una instancia en ejecución, pulse en el botón `Run and Debug` de la barra lateral, seleccione `Debug Backend` en la lista desplegable, y pulse el botón de *Play*.
+Por defecto, los restaurantes no tendrán ningún porcentaje de descuento (es decir, el porcentaje de descuento será 0).
 
-* Para **depurar el frontend**, asegúrese de que **EXISTE** una instancia en ejecución del frontend que desee depurar, pulse en el botón `Run and Debug` de la barra lateral, seleccione `Debug Frontend` en la lista desplegable, y pulse el botón de *Play*.
+Recuerde validar en el backend que, al promocionar/despromocionar un producto, el restaurante asociado tenga un porcentaje de descuento superior a 0. En caso contrario, no podrá ser promocionado.
 
-## Test
+Por lo tanto, las vistas de edición y creación de los restaurantes deben incorporar un campo nuevo en el formulario (`InputItem`) para cambiar el porcentaje de descuento, permitiendo al propietario ajustar el valor de la propiedad. Recuerde validar en frontend (y backend) que el valor de ese nuevo campo es compatible con el tipo de dato y las restricciones mencionadas.
 
-* Para comprobar el correcto funcionamiento de backend puede ejecutar el conjunto de tests incluido a tal efecto. Para ello ejecute el siguiente comando:
+Para que el propietario pueda determinar a qué productos se les aplica el descuento del restaurante, modifique la vista de detalle del restaurante, donde se muestra el listado de sus productos, para que incluya un botón que permita al propietario activar o desactivar la promoción para ese producto. En caso de que el restaurante no tenga un descuento mayor que 0, no se mostrará este botón.
 
-    ```Bash
-    npm run test:backend
-    ```
-**Advertencia: Los tests no pueden ser modificados.**
+Las vistas de creación y edición de producto no incluirán la opción de aplicar o no aplicar el descuento.
+
+El sistema debería mostrar los restaurantes con el descuento aplicado y la opción de promocionarlos o quitarles la promoción tal y como se muestra en la siguiente captura de pantalla:
+
+<img width="395" alt="Image2" src="screenshot 2.png">
+
+
+
+<img width="395" alt="Image3" src="screenshot 3.png">
+
+Como ejemplo ilustrativo, el propietario de un restaurante podría aplicar un descuento del 10% al restaurante1, y otro descuento del 20% al restaurante2.
+
+
+Recuerda que:
+
+1. El descuento está en el intervalo [0,100].
+2. Si un restaurante activa el descuento promocional, los productos pueden estar promocionados o no.
+
+Implemente los cambios necesarios en Backend y Frontend para incluir esta funcionalidad.
